@@ -31,28 +31,34 @@ public class DataUtil {
      * Gets the latest(based on timestamp comparison) data from the supplied PsiData.
      *
      * @param psiData The input PSI data.
-     * @return A List of MapData.
+     * @return A List of MapData, or null if the input is null.
      */
     public List<MapData> getLatestMapData(PsiData psiData) {
+        if (psiData == null) {
+            return null;
+        }
+
         List<PsiDataItem> items = psiData.getDataItems();
         PsiDataItem latestItem = null;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
         Date latestDate = null;
 
-        for (PsiDataItem item : items) {
-            try {
-                Date date = sdf.parse(item.getTimeStamp());
-                if (latestDate == null) {
-                    latestDate = date;
-                    latestItem = item;
-                } else {
-                    if (latestDate.before(date)) {
+        if (items != null) {
+            for (PsiDataItem item : items) {
+                try {
+                    Date date = sdf.parse(item.getTimeStamp());
+                    if (latestDate == null) {
                         latestDate = date;
                         latestItem = item;
+                    } else {
+                        if (latestDate.before(date)) {
+                            latestDate = date;
+                            latestItem = item;
+                        }
                     }
+                } catch (ParseException e) {
+                    // Do nothing.
                 }
-            } catch (ParseException e) {
-                // Do nothing.
             }
         }
 

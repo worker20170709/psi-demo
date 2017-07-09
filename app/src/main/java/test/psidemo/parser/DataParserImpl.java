@@ -39,20 +39,25 @@ import test.psidemo.model.RegionMetaData;
  *           "north": 53
  *         }
  *       }
- *     }
+ *     },
+ *     ...
  *   ],
  *   "api_info": {
  *     "status": "healthy"
  *   }
  * }
  *
- * The parsing is lenient, in that the result might contain imcomplete data. Also a null result
- * might be returned if there is an Exception.
+ * The parsing is lenient, in that the result might contain invalid data. Also a null result
+ * might be returned if there is an Exception or a null input is given.
  */
 
 public class DataParserImpl implements IDataParser {
     @Override
     public PsiData parse(String data) {
+        if (data == null) {
+            return null;
+        }
+
         PsiData psiData = new PsiData();
         try {
             JSONObject object = (JSONObject)new JSONTokener(data).nextValue();
