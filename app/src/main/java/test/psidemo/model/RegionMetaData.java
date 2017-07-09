@@ -5,17 +5,8 @@ package test.psidemo.model;
  */
 
 public class RegionMetaData {
-    private String mName;
     private double mLat;
     private double mLng;
-
-    public void setName(String name) {
-        mName = name;
-    }
-
-    public String getName() {
-        return mName;
-    }
 
     public void setLat(double lat) {
         mLat = lat;

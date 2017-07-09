@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">PsiDemo</string>
+    <string name="psi_value">Psi: %d</string>
+    <string name="national_psi_value">National Psi: %d</string>
 </resources>
